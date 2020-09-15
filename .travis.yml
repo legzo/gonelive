@@ -1,25 +1,23 @@
 language: rust
 cache: cargo
 script:
-  - cargo build --release
-  - git config --local user.name "Julien Terrier"
-  - git config --local user.email "legzomil@gmail.com"
+- cargo build --release
+- git config --local user.name "Julien Terrier"
+- git config --local user.email "legzomil@gmail.com"
 os:
-  - linux
-  - osx
-  - windows
+- linux
+- osx
+- windows
 before_deploy:
-  - cd $TRAVIS_BUILD_DIR
-  - export TRAVIS_TAG="latest"-$TRAVIS_OS_NAME
+- cd $TRAVIS_BUILD_DIR
+- export TRAVIS_TAG="latest"-$TRAVIS_OS_NAME
 deploy:
   provider: releases
-  skip_cleanup: true
-  file_glob: true
-  # draft: true
-  overwrite: true
-  name: $TRAVIS_OS_NAME
-  file:
+  api_key:
+    secure: fdbR87xgJfi5TCw+5XBq6W7DW2zhIefLxk/7nW4bftKtVAqvy9pQN1sCXIfrkIOGsaW4ErG7n+KsmpAeHSmycVKn6X4HNBJ+LWPY4Qwv/f+Ozfh+oIBh+4D73lRViQph4BLFh4IewHTgZ9HE0VSaEeOhapM2TdBBvBjg3hbmQOmzffRPHqjSBPt0MaRX+ix8TUIodtKTK2PSYWYkhO+pgMPZ1z9r6o2KYByYKUDmNsC3dj2wQa3sUY1nyWIOQ3BZMFND9L1aS1aWGanqrc5o0sKL2m0LWYlvmhYwpWRgNvP3VZzGdgZfMpqCqbOryBIEmjwAq6E3Vi/WYxl4mqRnsHMFd5BlvkK+yh2MpU306pMnCeiKBamJKLkPitBBA3/6kYiEfR6UIjMWYGuwE6SpFY9/cFx9wsUugyirjl3eQkMDHRXM1Oi6zbkKZbZRNqfqLMKE6si0FvxiGgt8XDjqK8C3OfrL6Wr1r2da0S4xi6LHx8+MbCtR60daWtstjbnTGRRBamMyJdFGyUnijEIxQZmQmW/7PSKq977PkgOkoy2krsdiLFGV/f+DcU+uw8RRzoA6cOQ2tvCcWy+1xwgsoz/QLEFIxULB3vfOOqQw/Tyo4xMwNUnzJkw48fY443/dG6oP1vggb9yNxmZ/Bd//wEzrXAqgcM3PwsjGlfy4Mqg=
+  file: 
     - target/release/gonelive
     - target/release/gonelive.exe
-  api_key:
-    secure:  $GITHUB_API_TOKEN
+  on:
+    repo: legzo/gonelive
+  skip_cleanup: 'true'
