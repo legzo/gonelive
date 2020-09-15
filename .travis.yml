@@ -1,0 +1,25 @@
+language: rust
+cache: cargo
+script:
+  - cargo build --release
+  - git config --local user.name "Julien Terrier"
+  - git config --local user.email "legzomil@gmail.com"
+os:
+  - linux
+  - osx
+  - windows
+before_deploy:
+  - cd $TRAVIS_BUILD_DIR
+  - export TRAVIS_TAG="latest"-$TRAVIS_OS_NAME
+deploy:
+  provider: releases
+  skip_cleanup: true
+  file_glob: true
+  # draft: true
+  overwrite: true
+  name: $TRAVIS_OS_NAME
+  file:
+    - target/release/gonelive
+    - target/release/gonelive.exe
+  api_key:
+    secure:  $GITHUB_API_TOKEN
